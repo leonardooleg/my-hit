@@ -1,0 +1,12 @@
+#flash_header{
+  height:200px;
+  width:100%;
+  background:#000;
+  overflow:hidden;
+  margin-top:-20px;
+}
+#branding_flash{
+  position:relative;
+  left:50%;
+  margin-left:-675px;
+}

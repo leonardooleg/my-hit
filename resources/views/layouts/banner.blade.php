@@ -1,0 +1,1 @@
+<a href="https://web.archive.org/web/20150906174932/http://countmy.click/myhit/brand" target="_blank" rel="nofollow"><div id="flash_header"><div id="branding_flash"><img src="/branding/swf/brand5-4.gif" width="1350" height="200"></div></div></a>

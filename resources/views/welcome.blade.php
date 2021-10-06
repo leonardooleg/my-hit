@@ -1,132 +1,699 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}[hidden]{display:none}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}*,:after,:before{box-sizing:border-box;border:0 solid #e2e8f0}a{color:inherit;text-decoration:inherit}svg,video{display:block;vertical-align:middle}video{max-width:100%;height:auto}.bg-white{--bg-opacity:1;background-color:#fff;background-color:rgba(255,255,255,var(--bg-opacity))}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.border-gray-200{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237,242,247,var(--border-opacity))}.border-t{border-top-width:1px}.flex{display:flex}.grid{display:grid}.hidden{display:none}.items-center{align-items:center}.justify-center{justify-content:center}.font-semibold{font-weight:600}.h-5{height:1.25rem}.h-8{height:2rem}.h-16{height:4rem}.text-sm{font-size:.875rem}.text-lg{font-size:1.125rem}.leading-7{line-height:1.75rem}.mx-auto{margin-left:auto;margin-right:auto}.ml-1{margin-left:.25rem}.mt-2{margin-top:.5rem}.mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}.mt-4{margin-top:1rem}.ml-4{margin-left:1rem}.mt-8{margin-top:2rem}.ml-12{margin-left:3rem}.-mt-px{margin-top:-1px}.max-w-6xl{max-width:72rem}.min-h-screen{min-height:100vh}.overflow-hidden{overflow:hidden}.p-6{padding:1.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.pt-8{padding-top:2rem}.fixed{position:fixed}.relative{position:relative}.top-0{top:0}.right-0{right:0}.shadow{box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06)}.text-center{text-align:center}.text-gray-200{--text-opacity:1;color:#edf2f7;color:rgba(237,242,247,var(--text-opacity))}.text-gray-300{--text-opacity:1;color:#e2e8f0;color:rgba(226,232,240,var(--text-opacity))}.text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.text-gray-500{--text-opacity:1;color:#a0aec0;color:rgba(160,174,192,var(--text-opacity))}.text-gray-600{--text-opacity:1;color:#718096;color:rgba(113,128,150,var(--text-opacity))}.text-gray-700{--text-opacity:1;color:#4a5568;color:rgba(74,85,104,var(--text-opacity))}.text-gray-900{--text-opacity:1;color:#1a202c;color:rgba(26,32,44,var(--text-opacity))}.underline{text-decoration:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.w-5{width:1.25rem}.w-8{width:2rem}.w-auto{width:auto}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}@media (min-width:640px){.sm\:rounded-lg{border-radius:.5rem}.sm\:block{display:block}.sm\:items-center{align-items:center}.sm\:justify-start{justify-content:flex-start}.sm\:justify-between{justify-content:space-between}.sm\:h-20{height:5rem}.sm\:ml-0{margin-left:0}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pt-0{padding-top:0}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width:768px){.md\:border-t-0{border-top-width:0}.md\:border-l{border-left-width:1px}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}}@media (prefers-color-scheme:dark){.dark\:bg-gray-800{--bg-opacity:1;background-color:#2d3748;background-color:rgba(45,55,72,var(--bg-opacity))}.dark\:bg-gray-900{--bg-opacity:1;background-color:#1a202c;background-color:rgba(26,32,44,var(--bg-opacity))}.dark\:border-gray-700{--border-opacity:1;border-color:#4a5568;border-color:rgba(74,85,104,var(--border-opacity))}.dark\:text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.dark\:text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.dark\:text-gray-500{--tw-text-opacity:1;color:#6b7280;color:rgba(107,114,128,var(--tw-text-opacity))}}}
-        </style>
-
-        <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-            }
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
+@section('content')
+    @include('layouts.banner')
+    <div class="container"
+         style="background-color: #ffffff; padding-top: 18px; min-height: 1000px; padding-bottom: 18px;">
+        <div class="row">
+            <div class="col-xs-12 col-md-10 conten fullstory" style="background-color: #ffffff;"><h3
+                    style="margin-top: 0px;"><a href="/film/?s=3">Популярные фильмы</a></h3>
+                <div class="row metrika" data-metrika="main_film_top">
+                    <div class="col-xs-2" style="width: 20%;"><a title="Кровные узы (2020) - смотреть онлайн"
+                                                                 href="/film/441421/"><img
+                                class="img-rounded img-responsive" src="/storage/2137843_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Кровные узы (2020) - смотреть онлайн" href="/film/441421/">Кровные
+                                    узы</a></b><br><small><a href="/film/i1k4/">2020</a>, WEB-DL</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Довод (2020) - смотреть онлайн"
+                                                                 href="/film/440410/"><img
+                                class="img-rounded img-responsive" src="/storage/2129808_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Довод (2020) - смотреть онлайн"
+                                    href="/film/440410/">Довод</a></b><br><small><a
+                                    href="/film/i1k4/">2020</a>, TS</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Гренландия (2020) - смотреть онлайн"
+                                                                 href="/film/440324/"><img
+                                class="img-rounded img-responsive" src="/storage/2129207_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Гренландия (2020) - смотреть онлайн"
+                                    href="/film/440324/">Гренландия</a></b><br><small><a href="/film/i1k4/">2020</a>,
+                                WEB-DL</small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Подольские курсанты (2019) - смотреть онлайн"
+                                                                 href="/film/441419/"><img
+                                class="img-rounded img-responsive" src="/storage/2137841_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Подольские курсанты (2019) - смотреть онлайн" href="/film/441419/">Подольские
+                                    курсанты</a></b><br><small><a href="/film/i1k3/">2019</a>, TS</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Кольская сверхглубокая (2020) - смотреть онлайн"
+                                                                 href="/film/441418/"><img
+                                class="img-rounded img-responsive" src="/storage/2137840_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Кольская сверхглубокая (2020) - смотреть онлайн" href="/film/441418/">Кольская
+                                    сверхглубокая</a></b><br><small><a href="/film/i1k4/">2020</a>, TS</small></div>
+                    </div>
                 </div>
-            @endif
-
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
-                        <g clip-path="url(#clip0)" fill="#EF3B2D">
-                            <path d="M248.032 44.676h-16.466v100.23h47.394v-14.748h-30.928V44.676zM337.091 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.431 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162-.001 2.863-.479 5.584-1.432 8.161zM463.954 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.432 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162 0 2.863-.479 5.584-1.432 8.161zM650.772 44.676h-15.606v100.23h15.606V44.676zM365.013 144.906h15.607V93.538h26.776V78.182h-42.383v66.724zM542.133 78.182l-19.616 51.096-19.616-51.096h-15.808l25.617 66.724h19.614l25.617-66.724h-15.808zM591.98 76.466c-19.112 0-34.239 15.706-34.239 35.079 0 21.416 14.641 35.079 36.239 35.079 12.088 0 19.806-4.622 29.234-14.688l-10.544-8.158c-.006.008-7.958 10.449-19.832 10.449-13.802 0-19.612-11.127-19.612-16.884h51.777c2.72-22.043-11.772-40.877-33.023-40.877zm-18.713 29.28c.12-1.284 1.917-16.884 18.589-16.884 16.671 0 18.697 15.598 18.813 16.884h-37.402zM184.068 43.892c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002-35.648-20.524a2.971 2.971 0 00-2.964 0l-35.647 20.522-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v38.979l-29.706 17.103V24.493a3 3 0 00-.103-.776c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002L40.098 1.396a2.971 2.971 0 00-2.964 0L1.487 21.919l-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v122.09c0 1.063.568 2.044 1.489 2.575l71.293 41.045c.156.089.324.143.49.202.078.028.15.074.23.095a2.98 2.98 0 001.524 0c.069-.018.132-.059.2-.083.176-.061.354-.119.519-.214l71.293-41.045a2.971 2.971 0 001.489-2.575v-38.979l34.158-19.666a2.971 2.971 0 001.489-2.575V44.666a3.075 3.075 0 00-.106-.774zM74.255 143.167l-29.648-16.779 31.136-17.926.001-.001 34.164-19.669 29.674 17.084-21.772 12.428-43.555 24.863zm68.329-76.259v33.841l-12.475-7.182-17.231-9.92V49.806l12.475 7.182 17.231 9.92zm2.97-39.335l29.693 17.095-29.693 17.095-29.693-17.095 29.693-17.095zM54.06 114.089l-12.475 7.182V46.733l17.231-9.92 12.475-7.182v74.537l-17.231 9.921zM38.614 7.398l29.693 17.095-29.693 17.095L8.921 24.493 38.614 7.398zM5.938 29.632l12.475 7.182 17.231 9.92v79.676l.001.005-.001.006c0 .114.032.221.045.333.017.146.021.294.059.434l.002.007c.032.117.094.222.14.334.051.124.088.255.156.371a.036.036 0 00.004.009c.061.105.149.191.222.288.081.105.149.22.244.314l.008.01c.084.083.19.142.284.215.106.083.202.178.32.247l.013.005.011.008 34.139 19.321v34.175L5.939 144.867V29.632h-.001zm136.646 115.235l-65.352 37.625V148.31l48.399-27.628 16.953-9.677v33.862zm35.646-61.22l-29.706 17.102V66.908l17.231-9.92 12.475-7.182v33.841z"/>
-                        </g>
-                    </svg>
+                <a class="btn btn-success" href="/film/?s=3">Популярные фильмы ... »</a><br>
+                <h3 style="margin-top: 0px;">Рекомендованные фильмы</h3>
+                <div class="row metrika" data-metrika="main_film_rec">
+                    <div class="col-xs-2" style="width: 20%;"><a title="Тайна перевала Дятлова (2013) - смотреть онлайн"
+                                                                 href="/film/22141/"><img
+                                class="img-rounded img-responsive"
+                                src="/storage/284229_210x300x50x2.jpg"
+                                alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Тайна перевала Дятлова (2013) - смотреть онлайн" href="/film/22141/">Тайна
+                                    перевала Дятлова</a></b><br><small><a href="/film/i1jx/">2013</a>, BDRip</small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Перелом (2019) - смотреть онлайн"
+                                                                 href="/film/436239/"><img
+                                class="img-rounded img-responsive" src="/storage/2098967_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Перелом (2019) - смотреть онлайн"
+                                    href="/film/436239/">Перелом</a></b><br><small><a
+                                    href="/film/i1k3/">2019</a>, WEB-DLRip</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Грань времени (2019) - смотреть онлайн"
+                                                                 href="/film/441339/"><img
+                                class="img-rounded img-responsive" src="/storage/2136704_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Грань времени (2019) - смотреть онлайн" href="/film/441339/">Грань
+                                    времени</a></b><br><small><a href="/film/i1k3/">2019</a>, TS</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a
+                            title="Копировать. Вставить. Удалить. (2018) - смотреть онлайн" href="/film/441426/"><img
+                                class="img-rounded img-responsive" src="/storage/2138128_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Копировать. Вставить. Удалить. (2018) - смотреть онлайн"
+                                    href="/film/441426/">Копировать.
+                                    Вставить. Удалить.</a></b><br><small><a href="/film/i1k2/">2018</a>,
+                                WEB-DLRip</small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Горничная для тебя (2017) - смотреть онлайн"
+                                                                 href="/film/415737/"><img
+                                class="img-rounded img-responsive" src="/storage/1643724_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Горничная для тебя (2017) - смотреть онлайн" href="/film/415737/">Горничная
+                                    для
+                                    тебя</a></b><br><small><a href="/film/i1k1/">2017</a>, BDRip</small></div>
+                    </div>
                 </div>
-
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div class="grid grid-cols-1 md:grid-cols-2">
-                        <div class="p-6">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel.com/docs" class="underline text-gray-900 dark:text-white">Documentation</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel has wonderful, thorough documentation covering every aspect of the framework. Whether you are new to the framework or have previous experience with Laravel, we recommend reading all of the documentation from beginning to end.
-                                </div>
-                            </div>
+                <h3 style="margin-top: 0px;"><a href="/serial/?s=3">Популярные сериалы</a></h3>
+                <div class="row">
+                    <div class="col-xs-2" style="width: 20%;"><a title="Мандалорец (1-2 сезон) - смотреть онлайн"
+                                                                 href="/serial/6771/"><img
+                                class="img-rounded img-responsive" src="/storage/2101237_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Мандалорец (1-2 сезон) - смотреть онлайн" href="/serial/6771/">Мандалорец</a></b><br><small>1-2
+                                сезон, 1-1 серия из 8</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Ферзевый гамбит (1 сезон) - смотреть онлайн"
+                                                                 href="/serial/7067/"><img
+                                class="img-rounded img-responsive" src="/storage/2136475_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Ферзевый гамбит (1 сезон) - смотреть онлайн" href="/serial/7067/">Ферзевый
+                                    гамбит</a></b><br><small>1 сезон, <span
+                                    style="color: #008000;">все серии</span></small>
                         </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laracasts.com" class="underline text-gray-900 dark:text-white">Laracasts</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Шерлок в России (1 сезон) - смотреть онлайн"
+                                                                 href="/serial/7055/"><img
+                                class="img-rounded img-responsive" src="/storage/2135777_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Шерлок в России (1 сезон) - смотреть онлайн" href="/serial/7055/">Шерлок в
+                                    России</a></b><br><small>1 сезон, 1-3 серия из 8</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Фарго (1-4 сезон) - смотреть онлайн"
+                                                                 href="/serial/186/"><img
+                                class="img-rounded img-responsive"
+                                src="/storage/1472189_210x300x50x2.jpg"
+                                alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Фарго (1-4 сезон) - смотреть онлайн"
+                                    href="/serial/186/">Фарго</a></b><br><small>1-4
+                                сезон, 1-6 серия из 11</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Аванпост (1-3 сезон) - смотреть онлайн"
+                                                                 href="/serial/6077/"><img
+                                class="img-rounded img-responsive" src="/storage/2013460_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Аванпост (1-3 сезон) - смотреть онлайн" href="/serial/6077/">Аванпост</a></b><br><small>1-3
+                                сезон, 1-4 серия из 13</small></div>
+                    </div>
+                </div>
+                <div class="row"></div>
+                <a class="btn btn-success" href="/serial/?s=3">Популярные сериалы ... »</a><br>
+                <div class="pull-right" style="margin-top: 3px;"><a class="btn btn-primary btn-sm"
+                                                                    href="/film/i1k1-i1k2-i1k3/"><i
+                            class="icon-calendar"></i> Новые</a>&nbsp;<a class="btn btn-primary btn-sm"
+                                                                         href="/film/i1k1-i1k2-i1k3/?s=3"><i
+                            class="icon-eye-open"></i> Популярные</a>&nbsp;<a class="btn btn-primary btn-sm"
+                                                                              href="/film/i1k1-i1k2-i1k3/?s=11"><i
+                            class="icon-thumbs-up"></i> Рекомендуемые</a></div>
+                <h3 style="margin-top: 0px;"><a href="/film/i1k1-i1k2-i1k3/">Новые фильмы (2019-2017)</a></h3>
+                <div class="row metrika" data-metrika="main_film_new">
+                    <div class="col-xs-2" style="width: 20%;"><a
+                            title="Копировать. Вставить. Удалить. (2018) - смотреть онлайн" href="/film/441426/"><img
+                                class="img-rounded img-responsive" src="/storage/2138128_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Копировать. Вставить. Удалить. (2018) - смотреть онлайн"
+                                    href="/film/441426/">Копировать.
+                                    Вставить. Удалить.</a></b><br><small><a href="/film/i1k2/">2018</a>,
+                                WEB-DLRip</small>
                         </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel-news.com/" class="underline text-gray-900 dark:text-white">Laravel News</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Бой Бэнд (2018) - смотреть онлайн"
+                                                                 href="/film/428859/"><img
+                                class="img-rounded img-responsive" src="/storage/1920388_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Бой Бэнд (2018) - смотреть онлайн" href="/film/428859/">Бой
+                                    Бэнд</a></b><br><small><a href="/film/i1k2/">2018</a>, WEB-DLRip</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Атлантида (2019) - смотреть онлайн"
+                                                                 href="/film/441420/"><img
+                                class="img-rounded img-responsive" src="/storage/2137842_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Атлантида (2019) - смотреть онлайн"
+                                    href="/film/441420/">Атлантида</a></b><br><small><a href="/film/i1k3/">2019</a>,
+                                TS</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Подольские курсанты (2019) - смотреть онлайн"
+                                                                 href="/film/441419/"><img
+                                class="img-rounded img-responsive" src="/storage/2137841_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Подольские курсанты (2019) - смотреть онлайн" href="/film/441419/">Подольские
+                                    курсанты</a></b><br><small><a href="/film/i1k3/">2019</a>, TS</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Горничная для тебя (2017) - смотреть онлайн"
+                                                                 href="/film/415737/"><img
+                                class="img-rounded img-responsive" src="/storage/1643724_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Горничная для тебя (2017) - смотреть онлайн" href="/film/415737/">Горничная
+                                    для
+                                    тебя</a></b><br><small><a href="/film/i1k1/">2017</a>, BDRip</small></div>
+                    </div>
+                </div>
+                <div class="row metrika" data-metrika="main_film_new">
+                    <div class="col-xs-2" style="width: 20%;"><a
+                            title="Пингвинёнок Пороро: Пираты острова сокровищ (2019) - смотреть онлайн"
+                            href="/film/441100/"><img class="img-rounded img-responsive"
+                                                      src="/storage/2135006_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Пингвинёнок Пороро: Пираты острова сокровищ (2019) - смотреть онлайн"
+                                    href="/film/441100/">Пингвинёнок Пороро: Пираты острова
+                                    сокровищ</a></b><br><small><a
+                                    href="/film/i1k3/">2019</a>, WEB-DL</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Кот под прикрытием (2019) - смотреть онлайн"
+                                                                 href="/film/437823/"><img
+                                class="img-rounded img-responsive" src="/storage/2137171_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Кот под прикрытием (2019) - смотреть онлайн" href="/film/437823/">Кот под
+                                    прикрытием</a></b><br><small><a href="/film/i1k3/">2019</a>, BDRip</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a
+                            title="Кунг-фу нацисты в Африке (2019) - смотреть онлайн"
+                            href="/film/441415/"><img
+                                class="img-rounded img-responsive" src="/storage/2136989_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Кунг-фу нацисты в Африке (2019) - смотреть онлайн" href="/film/441415/">Кунг-фу
+                                    нацисты в Африке</a></b><br><small><a href="/film/i1k3/">2019</a>, BDRip</small>
                         </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline">Forge</a>, <a href="https://vapor.laravel.com" class="underline">Vapor</a>, <a href="https://nova.laravel.com" class="underline">Nova</a>, and <a href="https://envoyer.io" class="underline">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline">Telescope</a>, and more.
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Валери (2018) - смотреть онлайн"
+                                                                 href="/film/441413/"><img
+                                class="img-rounded img-responsive" src="/storage/2136980_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Валери (2018) - смотреть онлайн"
+                                    href="/film/441413/">Валери</a></b><br><small><a
+                                    href="/film/i1k2/">2018</a>, WEB-DLRip</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Кошмар в галерее Кей (2018) - смотреть онлайн"
+                                                                 href="/film/441410/"><img
+                                class="img-rounded img-responsive" src="/storage/2136969_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Кошмар в галерее Кей (2018) - смотреть онлайн" href="/film/441410/">Кошмар в
+                                    галерее Кей</a></b><br><small><a href="/film/i1k2/">2018</a>, WEB-DLRip</small>
                         </div>
                     </div>
                 </div>
-
-                <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 sm:text-left">
-                        <div class="flex items-center">
-                            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="-mt-px w-5 h-5 text-gray-400">
-                                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-
-                            <a href="https://laravel.bigcartel.com" class="ml-1 underline">
-                                Shop
-                            </a>
-
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="ml-4 -mt-px w-5 h-5 text-gray-400">
-                                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-
-                            <a href="https://github.com/sponsors/taylorotwell" class="ml-1 underline">
-                                Sponsor
-                            </a>
+                <div class="row metrika" data-metrika="main_film_new">
+                    <div class="col-xs-2" style="width: 20%;"><a title="Команда Альберта (2018) - смотреть онлайн"
+                                                                 href="/film/441407/"><img
+                                class="img-rounded img-responsive" src="/storage/2136963_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Команда Альберта (2018) - смотреть онлайн" href="/film/441407/">Команда
+                                    Альберта</a></b><br><small><a href="/film/i1k2/">2018</a>, WEB-DLRip</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="В двух часах от Парижа (2018) - смотреть онлайн"
+                                                                 href="/film/441406/"><img
+                                class="img-rounded img-responsive" src="/storage/2136962_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="В двух часах от Парижа (2018) - смотреть онлайн" href="/film/441406/">В двух
+                                    часах от Парижа</a></b><br><small><a href="/film/i1k2/">2018</a>, WEB-DLRip</small>
                         </div>
                     </div>
-
-                    <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                    <div class="col-xs-2" style="width: 20%;"><a title="Старший Аркан (2018) - смотреть онлайн"
+                                                                 href="/film/441400/"><img
+                                class="img-rounded img-responsive" src="/storage/2136952_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Старший Аркан (2018) - смотреть онлайн" href="/film/441400/">Старший
+                                    Аркан</a></b><br><small><a href="/film/i1k2/">2018</a>, WEB-DLRip</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Детки на прогулке (2018) - смотреть онлайн"
+                                                                 href="/film/441399/"><img
+                                class="img-rounded img-responsive" src="/storage/2136951_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Детки на прогулке (2018) - смотреть онлайн" href="/film/441399/">Детки на
+                                    прогулке</a></b><br><small><a href="/film/i1k2/">2018</a>, WEB-DLRip</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Секта (2019) - смотреть онлайн"
+                                                                 href="/film/441396/"><img
+                                class="img-rounded img-responsive" src="/storage/2136932_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Секта (2019) - смотреть онлайн"
+                                    href="/film/441396/">Секта</a></b><br><small><a
+                                    href="/film/i1k3/">2019</a>, WEB-DLRip</small></div>
                     </div>
                 </div>
-            </div>
+                <div class="row metrika" data-metrika="main_film_new">
+                    <div class="col-xs-2" style="width: 20%;"><a title="Дочь тренера (2018) - смотреть онлайн"
+                                                                 href="/film/441395/"><img
+                                class="img-rounded img-responsive" src="/storage/2136927_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Дочь тренера (2018) - смотреть онлайн" href="/film/441395/">Дочь
+                                    тренера</a></b><br><small><a href="/film/i1k2/">2018</a>, WEB-DLRip</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Небеса цвета воды (2018) - смотреть онлайн"
+                                                                 href="/film/441394/"><img
+                                class="img-rounded img-responsive" src="/storage/2136923_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Небеса цвета воды (2018) - смотреть онлайн" href="/film/441394/">Небеса цвета
+                                    воды</a></b><br><small><a href="/film/i1k2/">2018</a>, WEB-DLRip</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a
+                            title="Романтический йога-ретрит (2019) - смотреть онлайн"
+                            href="/film/441389/"><img
+                                class="img-rounded img-responsive" src="/storage/2136914_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Романтический йога-ретрит (2019) - смотреть онлайн" href="/film/441389/">Романтический
+                                    йога-ретрит</a></b><br><small><a href="/film/i1k3/">2019</a>, WEB-DLRip</small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a
+                            title="Существо с ручья каннибало (2019) - смотреть онлайн"
+                            href="/film/441388/"><img
+                                class="img-rounded img-responsive" src="/storage/2136913_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Существо с ручья каннибало (2019) - смотреть онлайн" href="/film/441388/">Существо
+                                    с ручья каннибало</a></b><br><small><a href="/film/i1k3/">2019</a>,
+                                WEB-DLRip</small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Числа (2018) - смотреть онлайн"
+                                                                 href="/film/441386/"><img
+                                class="img-rounded img-responsive" src="/storage/2136908_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Числа (2018) - смотреть онлайн"
+                                    href="/film/441386/">Числа</a></b><br><small><a
+                                    href="/film/i1k2/">2018</a>, WEB-DLRip</small></div>
+                    </div>
+                </div>
+                <div class="row metrika" data-metrika="main_film_new"></div>
+                <a class="btn btn-success" href="/film/">Каталог фильмов ... »</a><br>
+                <div class="pull-right" style="margin-top: 3px;"><a class="btn btn-primary btn-sm"
+                                                                    href="/serial/i1k1-i1k2-i1k3/"><i
+                            class="icon-calendar"></i> Новые</a>&nbsp;<a class="btn btn-primary btn-sm"
+                                                                         href="/serial/i1k1-i1k2-i1k3/?s=3"><i
+                            class="icon-eye-open"></i> Популярные</a>&nbsp;<a class="btn btn-primary btn-sm"
+                                                                              href="/serial/i1k1-i1k2-i1k3/?s=11"><i
+                            class="icon-thumbs-up"></i> Рекомендуемые</a></div>
+                <h3 style="margin-top: 0px;"><a href="/serial/i1k1-i1k2-i1k3/">Новые сериалы (2019-2017)</a></h3>
+                <div class="row">
+                    <div class="col-xs-2" style="width: 20%;"><a title="Аванпост (1-3 сезон) - смотреть онлайн"
+                                                                 href="/serial/6077/"><img
+                                class="img-rounded img-responsive" src="/storage/2013460_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Аванпост (1-3 сезон) - смотреть онлайн" href="/serial/6077/">Аванпост</a></b><br><small>1-3
+                                сезон, 1-4 серия из 13</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Воин   (1-2 сезон) - смотреть онлайн"
+                                                                 href="/serial/6468/"><img
+                                class="img-rounded img-responsive" src="/storage/2031555_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Воин   (1-2 сезон) - смотреть онлайн"
+                                    href="/serial/6468/">Воин </a></b><br><small>1-2 сезон, 1-5 серия из 10</small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Субурра (1-3 сезон) - смотреть онлайн"
+                                                                 href="/serial/5601/"><img
+                                class="img-rounded img-responsive" src="/storage/1959285_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Субурра (1-3 сезон) - смотреть онлайн"
+                                    href="/serial/5601/">Субурра</a></b><br><small>1-3 сезон, <span
+                                    style="color: #008000;">все серии</span></small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Свои (1-3 сезон) - смотреть онлайн"
+                                                                 href="/serial/5716/"><img
+                                class="img-rounded img-responsive" src="/storage/1969394_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Свои (1-3 сезон) - смотреть онлайн"
+                                    href="/serial/5716/">Свои</a></b><br><small>1-3
+                                сезон, 1-40 серия из 45</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Гранд (1-4 сезон) - смотреть онлайн"
+                                                                 href="/serial/6082/"><img
+                                class="img-rounded img-responsive" src="/storage/2015314_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Гранд (1-4 сезон) - смотреть онлайн"
+                                    href="/serial/6082/">Гранд</a></b><br><small>1-4 сезон, 1-9 серия из 21</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2" style="width: 20%;"><a
+                            title="Сверхъестественное (1-15 сезон) - смотреть онлайн"
+                            href="/serial/129/"><img class="img-rounded img-responsive"
+                                                     src="/storage/1154727_210x300x50x2.jpg"
+                                                     alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Сверхъестественное (1-15 сезон) - смотреть онлайн" href="/serial/129/">Сверхъестественное</a></b><br><small>1-15
+                                сезон, 1-17 серия из 20</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Взрыв (1 сезон) - смотреть онлайн"
+                                                                 href="/serial/7053/"><img
+                                class="img-rounded img-responsive" src="/storage/2133289_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Взрыв (1 сезон) - смотреть онлайн"
+                                    href="/serial/7053/">Взрыв</a></b><br><small>1
+                                сезон, 1-12 серия из 16</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Арчер (1-11 сезон) - смотреть онлайн"
+                                                                 href="/serial/283/"><img
+                                class="img-rounded img-responsive"
+                                src="/storage/1568418_210x300x50x2.jpg"
+                                alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Арчер (1-11 сезон) - смотреть онлайн"
+                                    href="/serial/283/">Арчер</a></b><br><small>1-11 сезон, <span
+                                    style="color: #008000;">все серии</span></small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Фарго (1-4 сезон) - смотреть онлайн"
+                                                                 href="/serial/186/"><img
+                                class="img-rounded img-responsive"
+                                src="/storage/1472189_210x300x50x2.jpg"
+                                alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Фарго (1-4 сезон) - смотреть онлайн"
+                                    href="/serial/186/">Фарго</a></b><br><small>1-4
+                                сезон, 1-6 серия из 11</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Пандора (1-2 сезон) - смотреть онлайн"
+                                                                 href="/serial/6597/"><img
+                                class="img-rounded img-responsive" src="/storage/2093986_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Пандора (1-2 сезон) - смотреть онлайн"
+                                    href="/serial/6597/">Пандора</a></b><br><small>1-2 сезон, 1-4 серия из 13</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2" style="width: 20%;"><a
+                            title="Бойтесь ходячих мертвецов (1-6 сезон) - смотреть онлайн" href="/serial/2582/"><img
+                                class="img-rounded img-responsive" src="/storage/1608806_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Бойтесь ходячих мертвецов (1-6 сезон) - смотреть онлайн"
+                                    href="/serial/2582/">Бойтесь
+                                    ходячих мертвецов</a></b><br><small>1-6 сезон, 1-3 серия из 16</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Симпсоны (1-32 сезон) - смотреть онлайн"
+                                                                 href="/serial/238/"><img
+                                class="img-rounded img-responsive"
+                                src="/storage/1478144_210x300x50x2.jpg"
+                                alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Симпсоны (1-32 сезон) - смотреть онлайн" href="/serial/238/">Симпсоны</a></b><br><small>1-32
+                                сезон, 1-4 серия из 22</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Пацаны (1-2 сезон) - смотреть онлайн"
+                                                                 href="/serial/6611/"><img
+                                class="img-rounded img-responsive" src="/storage/2094928_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Пацаны (1-2 сезон) - смотреть онлайн"
+                                    href="/serial/6611/">Пацаны</a></b><br><small>1-2 сезон, <span
+                                    style="color: #008000;">все серии</span></small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Во тьме (1-2 сезон) - смотреть онлайн"
+                                                                 href="/serial/6455/"><img
+                                class="img-rounded img-responsive" src="/storage/2114068_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Во тьме (1-2 сезон) - смотреть онлайн" href="/serial/6455/">Во
+                                    тьме</a></b><br><small>1-2 сезон, <span
+                                    style="color: #008000;">все серии</span></small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Террор (1-2 сезон) - смотреть онлайн"
+                                                                 href="/serial/4984/"><img
+                                class="img-rounded img-responsive" src="/storage/1989309_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Террор (1-2 сезон) - смотреть онлайн"
+                                    href="/serial/4984/">Террор</a></b><br><small>1-2 сезон, <span
+                                    style="color: #008000;">все серии</span></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2" style="width: 20%;"><a title="Сага о Винланде (1 сезон) - смотреть онлайн"
+                                                                 href="/serial/6635/"><img
+                                class="img-rounded img-responsive" src="/storage/2095796_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Сага о Винланде (1 сезон) - смотреть онлайн" href="/serial/6635/">Сага о
+                                    Винланде</a></b><br><small>1 сезон, <span
+                                    style="color: #008000;">все серии</span></small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Гриффины (1-18 сезон) - смотреть онлайн"
+                                                                 href="/serial/232/"><img
+                                class="img-rounded img-responsive"
+                                src="/storage/1176713_210x300x50x2.jpg"
+                                alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Гриффины (1-18 сезон) - смотреть онлайн" href="/serial/232/">Гриффины</a></b><br><small>1-18
+                                сезон, <span style="color: #008000;">все серии</span></small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Балабол (1-4 сезон) - смотреть онлайн"
+                                                                 href="/serial/379/"><img
+                                class="img-rounded img-responsive"
+                                src="/storage/1213548_210x300x50x2.jpg"
+                                alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Балабол (1-4 сезон) - смотреть онлайн"
+                                    href="/serial/379/">Балабол</a></b><br><small>1-4 сезон, 1-18 серия из 20</small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Фитнес (1-4 сезон) - смотреть онлайн"
+                                                                 href="/serial/5765/"><img
+                                class="img-rounded img-responsive" src="/storage/2019773_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Фитнес (1-4 сезон) - смотреть онлайн"
+                                    href="/serial/5765/">Фитнес</a></b><br><small>1-4 сезон, 1-19 серия из 20</small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Комната 104 (1-4 сезон) - смотреть онлайн"
+                                                                 href="/serial/5498/"><img
+                                class="img-rounded img-responsive" src="/storage/1931146_210x300x50x2.jpg" alt=""></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Комната 104 (1-4 сезон) - смотреть онлайн" href="/serial/5498/">Комната
+                                    104</a></b><br><small>1-4 сезон, 1-9 серия из 12</small></div>
+                    </div>
+                </div>
+                <div class="row"></div>
+                <a class="btn btn-success" href="/serial/">Каталог сериалов ... »</a><br>
+                <div class="pull-right" style="margin-top: 3px;"><a class="btn btn-primary btn-sm"
+                                                                    href="/soundtrack/"><i
+                            class="icon-calendar"></i> Новые</a>&nbsp;<a class="btn btn-primary btn-sm"
+                                                                         href="/soundtrack/?s=19"><i
+                            class="icon-eye-open"></i> Популярные</a>&nbsp;
+                </div>
+                <h3 style="margin-top: 0px;"><a href="/soundtrack/">Саундтреки</a></h3>
+                <div class="row">
+                    <div class="col-xs-2" style="width: 20%;"><a href="/film/429797/soundtrack/"><img
+                                class="img-rounded img-responsive center-block" src="/storage/2024657_220x220x50x1.jpg"
+                                alt="Ничего хорошего в отеле «Эль рояль» - саундтреки"
+                                title="Ничего хорошего в отеле «Эль рояль» - саундтреки"></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Ничего хорошего в отеле «Эль рояль» - саундтреки"
+                                    href="/film/429797/soundtrack/">Ничего хорошего в отеле «Эль
+                                    рояль»</a></b><br><small><a
+                                    href="/film/i1k2/">2018</a>, Score, 04.12.2018</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a href="/film/429797/soundtrack/"><img
+                                class="img-rounded img-responsive center-block" src="/storage/2024645_220x220x50x1.jpg"
+                                alt="Ничего хорошего в отеле «Эль рояль» - саундтреки"
+                                title="Ничего хорошего в отеле «Эль рояль» - саундтреки"></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a
+                                    title="Ничего хорошего в отеле «Эль рояль» - саундтреки"
+                                    href="/film/429797/soundtrack/">Ничего хорошего в отеле «Эль
+                                    рояль»</a></b><br><small><a
+                                    href="/film/i1k2/">2018</a>, OST, 04.12.2018</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a href="/film/425877/soundtrack/"><img
+                                class="img-rounded img-responsive center-block" src="/storage/2024610_220x220x50x1.jpg"
+                                alt="Звезда родилась - саундтреки" title="Звезда родилась - саундтреки"></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a title="Звезда родилась - саундтреки"
+                                                                                    href="/film/425877/soundtrack/">Звезда
+                                    родилась</a></b><br><small><a href="/film/i1k2/">2018</a>, OST, 03.12.2018</small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a href="/film/429708/soundtrack/"><img
+                                class="img-rounded img-responsive center-block" src="/storage/2024573_220x220x50x1.jpg"
+                                alt="Человек на Луне - саундтреки" title="Человек на Луне - саундтреки"></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a title="Человек на Луне - саундтреки"
+                                                                                    href="/film/429708/soundtrack/">Человек
+                                    на Луне</a></b><br><small><a href="/film/i1k2/">2018</a>, Score, 03.12.2018</small>
+                        </div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a href="/film/430254/soundtrack/"><img
+                                class="img-rounded img-responsive center-block" src="/storage/2024551_220x220x50x1.jpg"
+                                alt="Хэллоуин  - саундтреки" title="Хэллоуин  - саундтреки"></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a title="Хэллоуин  - саундтреки"
+                                                                                    href="/film/430254/soundtrack/">Хэллоуин </a></b><br><small><a
+                                    href="/film/i1k2/">2018</a>, Score, 03.12.2018</small></div>
+                    </div>
+                </div>
+                <div class="row"></div>
+                <a class="btn btn-success" href="/soundtrack/">Саундтреки ... »</a><br>
+                <div class="pull-right" style="margin-top: 3px;"><a class="btn btn-primary btn-sm" href="/selection/"><i
+                            class="icon-calendar"></i> Новые</a>&nbsp;<a class="btn btn-primary btn-sm"
+                                                                         href="/selection/?s=19"><i
+                            class="icon-eye-open"></i> Популярные</a>&nbsp;
+                </div>
+                <h3 style="margin-top: 0px;"><a href="/selection/">Подборки</a></h3>
+                <div class="row">
+                    <div class="col-xs-2" style="width: 20%;"><a title="актёры" href="/selection/49257/"><img
+                                class="img-rounded img-responsive center-block" src="/images/photo.png"
+                                alt="актёры" title="актёры"></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a title="актёры"
+                                                                                    href="/selection/49257/">актёры</a></b><br><small><a
+                                    href="/user/StrannayaDama/">StrannayaDama</a>, 29.11.2020&nbsp;00:41</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="триллер" href="/selection/48763/"><img
+                                class="img-rounded img-responsive center-block" src="/storage/247910_210x300x50x2.jpg"
+                                alt="триллер" title="триллер"></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a title="триллер"
+                                                                                    href="/selection/48763/">триллер</a></b><br><small><a
+                                    href="/user/StrannayaDama/">StrannayaDama</a>, 29.11.2020&nbsp;00:40</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Советую." href="/selection/12618/"><img
+                                class="img-rounded img-responsive center-block" src="/storage/2107224_210x300x50x2.jpg"
+                                alt="Советую." title="Советую."></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a title="Советую."
+                                                                                    href="/selection/12618/">Советую.</a></b><br><small><a
+                                    href="/user/spulka/">spulka</a>, 29.11.2020&nbsp;00:36</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="сериал" href="/selection/48872/"><img
+                                class="img-rounded img-responsive center-block" src="/images/photo.png"
+                                alt="сериал" title="сериал"></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a title="сериал"
+                                                                                    href="/selection/48872/">сериал</a></b><br><small><a
+                                    href="/user/StrannayaDama/">StrannayaDama</a>, 29.11.2020&nbsp;00:34</small></div>
+                    </div>
+                    <div class="col-xs-2" style="width: 20%;"><a title="Музло" href="/selection/20135/"><img
+                                class="img-rounded img-responsive center-block" src="/storage/1644355_210x300x50x2.jpg"
+                                alt="Музло" title="Музло"></a>
+                        <div style="margin-bottom: 10px;" class="text-center"><b><a title="Музло"
+                                                                                    href="/selection/20135/">Музло</a></b><br><small><a
+                                    href="/user/Leksus81/">Leksus81</a>, 29.11.2020&nbsp;00:21</small></div>
+                    </div>
+                </div>
+                <div class="row"></div>
+                <a class="btn btn-success" href="/selection/">Подборки ... »</a><br><br></div>
+            <div class="col-xs-2 col-md-2 hidden-xs hidden-sm"><!--noindex-->
+                <div id="M225549Composite652301" class="tizer-right-block"></div>
+                <br><!--/noindex-->
+                <ul class="nav nav-list tizer-right-block metrika"
+                    style="min-height: 100px; text-align: left; padding-top: 10px; line-height: 150%;"
+                    data-metrika="film_view_now">
+                    <li class="nav-header">Популярные фильмы:</li>
+                    <li style="margin-bottom: 10px; margin-top:5px; font-weight: bold;" class="text-center"><a
+                            title="Кровные узы (2020) - смотреть онлайн" href="/film/441421/"><img
+                                class="img-rounded img-responsive text-center" src="/storage/2137843_210x300x50x2.jpg"
+                                alt="" style="max-width: 100%;"></a><a title="Кровные узы (2020) - смотреть онлайн"
+                                                                       href="/film/441421/">Кровные узы (2020)</a></li>
+                    <li><a title="Кровные узы (2020) - смотреть онлайн" href="/film/441421/">Кровные узы (2020)</a></li>
+                    <li><a title="Довод (2020) - смотреть онлайн" href="/film/440410/">Довод (2020)</a></li>
+                    <li><a title="Гренландия (2020) - смотреть онлайн" href="/film/440324/">Гренландия (2020)</a></li>
+                    <li><a title="Подольские курсанты (2019) - смотреть онлайн" href="/film/441419/">Подольские курсанты
+                            (2019)</a></li>
+                    <li><a title="Кольская сверхглубокая (2020) - смотреть онлайн" href="/film/441418/">Кольская
+                            сверхглубокая (2020)</a></li>
+                    <li><a title="Тайна перевала Дятлова (2013) - смотреть онлайн" href="/film/22141/">Тайна перевала
+                            Дятлова (2013)</a></li>
+                    <li><a title="Авангард (2020) - смотреть онлайн" href="/film/440919/">Авангард (2020)</a></li>
+                    <li><a title="Афера века (2020) - смотреть онлайн" href="/film/441179/">Афера века (2020)</a></li>
+                    <li><a title="Дичь (2020) - смотреть онлайн" href="/film/441422/">Дичь (2020)</a></li>
+                    <li><a title="Цой (2020) - смотреть онлайн" href="/film/441425/">Цой (2020)</a></li>
+                    <li><a href="/film/?s=3">Еще фильмы ... »</a></li>
+                </ul>
+                <br><!--noindex-->
+                <div id="M225549Composite652302" class="tizer-right-block"></div>
+                <br><!--/noindex-->
+                <ul class="nav nav-list tizer-right-block"
+                    style="min-height: 100px; text-align: left; padding-top: 10px; line-height: 150%;">
+                    <li class="nav-header">Последние отзывы:</li>
+                    <li style="margin-bottom: 10px;"><a
+                            href="/film/437652/#comment_3235850"><b>Шахматист</b></a><span><a
+                                href="/user/spulka/">spulka</a>: Смотрела на одном дыхании, хотя не люблю спортивные биографии. Вроде и зрелищности нет, но фильм хороший. Кстати актеры очень хорошо сыграли, как будто прожили .
+Советую.</span></li>
+                    <li style="margin-bottom: 10px;"><a href="/film/7174/#comment_3235849"><b>Тринадцатый
+                                этаж</b></a><span><a
+                                href="/user/Москаленко/">Москаленко</a>: Впечатляет. Хотя и тема границ миров почти не раскрыта. Очень мало подобных фильмов.</span>
+                    </li>
+                    <li style="margin-bottom: 10px;"><a href="/film/440155/#comment_3235848"><b>КУНФУ
+                                БАБУЛЬКА</b></a><span><a
+                                href="/user/Стоун/">Стоун</a>: лично вот мне понравился фильмец   !   однако бабулька сыграла очень класно .  немало было смешных угарных моментов ,  ну конечно же драматические моменты тоже были      криминальная тема тоже...</span>
+                    </li>
+                    <li style="margin-bottom: 10px;"><a href="/film/441284/#comment_3235847"><b>Пара на
+                                праздники</b></a><span><a href="/user/Bukabyaka/">Bukabyaka</a>: А кого сыграл этот Мониб Абхат?</span>
+                    </li>
+                    <li style="margin-bottom: 10px;"><a href="/film/440410/#comment_3235846"><b>Довод</b></a><span><a
+                                href="/user/Arhаngеl/">Arhаngеl</a>: Всё разжевали и подали на тарелке.</span></li>
+                    <li style="margin-bottom: 10px;"><a href="/star/28515/#comment_3235845"><b>Интересная
+                                актриса</b></a><span><a href="/user/soulman123/">soulman123</a>: С собственной харизмой и привкусом женственности. Аутентичная внешность, позволяющая ей быть узнаваемой и индивидуальной. Привкус холодности и теплоты.</span>
+                    </li>
+                    <li style="margin-bottom: 10px;"><a href="/film/441197/#comment_3235844"><b>Ведьмы</b></a><span><a
+                                href="/user/Leksus81/">Leksus81</a>: Посмотрев эту картину, не мог не вспомнить старый фильм с одноимённым названием.
+А ведь тот первый впечатлил, и сразу захотелось пересмотреть былое.
+
+По поводу нового ничего плохого сказать не...</span></li>
+                    <li><a href="/comment/">Еще отзывы ... »</a></li>
+                </ul>
+                <br>
+                <ul class="nav nav-list tizer-right-block"
+                    style="min-height: 100px; text-align: left; padding-top: 10px; line-height: 120%;">
+                    <li class="nav-header">Горячие темы:</li>
+                    <li><a href="/forum/1/topic/485/" style="overflow: hidden; word-wrap: break-word;" title="ФЛУДИЛКА">ФЛУДИЛКА</a>
+                        <p style="text-indent: 0;"><small>67,238 ответов, час назад</small></p></li>
+                    <li><a href="/forum/17/topic/394/" style="overflow: hidden; word-wrap: break-word;"
+                           title="Смешную картинку постим?">Смешную картинку постим?</a>
+                        <p style="text-indent: 0;"><small>2,056 ответов, 9 часов назад</small></p></li>
+                    <li><a href="/forum/3/topic/1173/" style="overflow: hidden; word-wrap: break-word;"
+                           title="играем  в  игру  под  названием  ВИРШИК">играем в игру под...</a>
+                        <p style="text-indent: 0;"><small>4,087 ответов, 9 часов назад</small></p></li>
+                    <li><a href="/forum/17/topic/740/" style="overflow: hidden; word-wrap: break-word;"
+                           title="Матрица. Что есть наша реальность? Воля иллюзорна, любой выбор – рок? Чего хочет Бог? «Ты должен помнить, что большинство не готовы принять реальность, а многие настолько отравлены и так безнадежно зависимы от Системы, что будут драться за нее»">Матрица.
+                            Что есть наша...</a>
+                        <p style="text-indent: 0;"><small>1,822 ответа, 10 часов назад</small></p></li>
+                    <li><a href="/forum/17/topic/3317/" style="overflow: hidden; word-wrap: break-word;"
+                           title="Ан-Клав (китаец)">Ан-Клав (китаец)</a>
+                        <p style="text-indent: 0;"><small>1,783 ответа, 11 часов назад</small></p></li>
+                    <li><a href="/forum/17/topic/270/" style="overflow: hidden; word-wrap: break-word;"
+                           title="&quot;Музыкальная тема&quot;">&quot;Музыкальная тема&quot;</a>
+                        <p style="text-indent: 0;"><small>6,444 ответа, вчера в 09:42</small></p></li>
+                    <li><a href="/forum/17/topic/2410/" style="overflow: hidden; word-wrap: break-word;"
+                           title="ИГРА &quot;СЛОВОБЛУДИЕ&quot;">ИГРА &quot;СЛОВОБЛУДИЕ&quot;</a>
+                        <p style="text-indent: 0;"><small>8,059 ответов, 27 ноября в 14:08</small></p></li>
+                    <li><a href="/forum/hot/">Еще темы ... »</a></li>
+                </ul>
+                <br><br><br></div>
         </div>
-    </body>
-</html>
+    </div>
+@endsection
