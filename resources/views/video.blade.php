@@ -9,115 +9,59 @@
             <div class="col-sm-10 col-md-8" itemscope="" itemtype="" style="balllckground-color: #ffffff;">
                 <ul class="breadcrumb">
                     <li><a href="/film/">Фильмы</a></li>
-                     <li><a href="/film/{{$film->film_id}}/">{{$film->film_name}}</a></li>
-                    <li class="active"><h2>Создатели</h2></li>
+                    <li><a href="/film/{{$film->film_id}}/">{{$film->film_name}}</a></li>
+                    <li><a href="/film/{{$film->film_id}}/video/">Всё видео</a></li>
+                    <li class="active"><h2>{{$video->video_name}}</h2></li>
                 </ul>
-                <h1>{{$film->film_name}} (<a href="/film/{{substr($techinfo->release, 0, 4)  }}/">{{substr($techinfo->release, 0, 4)  }}</a>)</h1>
-                <h3>Создатели</h3>
-                <div class="alert alert-warning"><b>Быстрый переход: </b><a href="#department_1">Актеры</a>, <a
-                        href="#department_7">Композиторы</a>, <a href="#department_20">Монтажеры</a>, <a
-                        href="#department_4">Операторы</a>, <a href="#department_12">Продюсеры</a>, <a
-                        href="#department_9">Режиссеры</a>, <a href="#department_18">Сценаристы</a>, <a
-                        href="#department_3">Художники</a></div>
-                <a name="department_1"></a>
-                <h3>Актеры</h3>
-                <div class="row">
-                    @foreach ($stars as $star)
-                        <div class="col-sm-2 text-center"><a
-                                href="/star/{{$star->star_id}}/"><img
-                                    class="img-rounded img-responsive"
-                                    src="/storage/@if(isset($star->star_photo)){{$star->star_photo}}@else/site/photo.png @endif" alt=""></a><b><a
-                                    href="/star/3446974/">{{$star->star_name}}</a></b></div>
-                    @endforeach
+                <h1>{{$video->video_name}}</h1>
 
+               <br>
+                <div class="row">
+                    <div class="col-sm-12 center-block text-center" style="max-width: 760px;">
+                        <div class="player" id="hitplayer_inner" style="width: 100%; height: 414px; visibility: visible;">
+                            Плеер
+                            <img class="img-rounded img-responsive" src="/storage/site/kadr/{{$video->film_id}}/{{$video->video_kadr}}"
+                                 alt="{{$video->video_name}}" title="{{$video->video_name}}">
+
+
+                            </div>
+                       </div>
                 </div>
                 <br>
-                <div class="row"></div>
-                <a name="department_7"></a>
-                <h3>Композиторы</h3>
-                <div class="row">
-                    @foreach ($сomposers as $сomposer)
-                        <div class="col-sm-2 text-center"><a
-                                href="/star/{{$сomposer->star_id}}/"><img
-                                    class="img-rounded img-responsive"
-                                    src="/storage/@if(isset($сomposer->star_photo)){{$сomposer->star_photo}}@else/site/photo.png @endif" alt=""></a><b><a
-                                    href="/star/3446974/">{{$сomposer->star_name}}</a></b></div>
-                    @endforeach
+                <div class="row"
+                ><div class="col-sm-6">
+                        <ul class="list-unstyled">
+                            <li><b>Тип: </b>{{$video->video_type_name}}.</li>
+                            <li><b>Фильм: </b><a href="/film/{{$film->film_id}}/">{{$film->film_name}}</a> (<a href="/film/{{substr($techinfo->release, 0, 4)  }}/">{{substr($techinfo->release, 0, 4)  }}</a>).</li>
+                            <li><b>Знаменитости: </b>
+                                @foreach ($stars as $star)
+                                    <a href="/star/{{$star->star_id}}/" >{{$star->star_name}}</a>,
+                                @endforeach
+
+                              </li></ul></div>
+                    <div class="col-sm-6"><ul class="list-unstyled">
+                            <li><b>Описание:</b> {{$film->film_description}}
 
 
-                </div>
-                <a name="department_20"></a>
-                <h3>Монтажеры</h3>
-                <div class="row">
-                    @foreach ($editors as $editor)
-                        <div class="col-sm-2 text-center"><a
-                                href="/star/{{$editor->star_id}}/"><img
-                                    class="img-rounded img-responsive"
-                                    src="/storage/@if(isset($editor->star_photo)){{$editor->star_photo}}@else/site/photo.png @endif" alt=""></a><b><a
-                                    href="/star/3446974/">{{$editor->star_name}}</a></b></div>
-                    @endforeach
-
-
-                </div>
-                <a name="department_4"></a>
-                <h3>Операторы</h3>
-                <div class="row">
-                    @foreach ($operators as $operator)
-                        <div class="col-sm-2 text-center"><a
-                                href="/star/{{$operator->star_id}}/"><img
-                                    class="img-rounded img-responsive"
-                                    src="/storage/@if(isset($operator->star_photo)){{$operator->star_photo}}@else/site/photo.png @endif" alt=""></a><b><a
-                                    href="/star/3446974/">{{$operator->star_name}}</a></b></div>
-                    @endforeach
-
-                </div>
-                <a name="department_12"></a>
-                <h3>Продюсеры</h3>
-                <div class="row">
-                    @foreach ($producers as $producer)
-                        <div class="col-sm-2 text-center"><a
-                                href="/star/{{$producer->star_id}}/"><img
-                                    class="img-rounded img-responsive"
-                                    src="/storage/@if(isset($producer->star_photo)){{$producer->star_photo}}@else/site/photo.png @endif" alt=""></a><b><a
-                                    href="/star/3446974/">{{$producer->star_name}}</a></b></div>
-                    @endforeach
-                </div>
+                            </li></ul></div></div>
+               <br>
+              <h3>Отзывы</h3>
+                <div id="comment_list" data-module="video" data-key-a="1" data-key-b="6746" data-at-page="20">
+                    <div class="row row-comment-total-count"><div class="col-sm-3" style="margin-bottom: 10px;"><b>Отзывов:</b> <span class="span-comment-total-count">1</span></div></div>
+                    <div class="comment" id="comment_2087121">
+                        <div class="user"><a href="/user/1/" target="_blank">
+                                <img class="img-rounded img-responsive center-block" src="/storage/site/users/1/999434_90x90x30.jpg" width="90" alt=""></a>
+                        </div><div class="body"><div class="pull-right"></div>
+                            <a href="/user/1/" target="_blank"><b>_di_m_ka_</b></a>
+                            <img src="/storage/site/users/gender_male.png" class="sex"> • 10.08.2015 в 20:35<br>
+                            <b>Терминатор: Генезис (2015)</b><p>Это самый короткий фильм который я когда либо видел      :)</p>
+                        </div></div></div>
                 <br>
+                <div class="alert alert-info">Для добавления отзывов, необходимо зарегистрироваться и войти на сайт.</div>
 
-                <a name="department_9"></a>
-                <h3>Режиссеры</h3>
-                <div class="row">
-                    @foreach ($directors as $director)
-                        <div class="col-sm-2 text-center"><a
-                                href="/star/{{$director->star_id}}/"><img
-                                    class="img-rounded img-responsive"
-                                    src="/storage/@if(isset($director->star_photo)){{$director->star_photo}}@else/site/photo.png @endif" alt=""></a><b><a
-                                    href="/star/3446974/">{{$director->star_name}}</a></b></div>
-                    @endforeach
-                </div>
-                <a name="department_18"></a>
-                <h3>Сценаристы</h3>
-                <div class="row">
-                    @foreach ($scenarios as $scenario)
-                        <div class="col-sm-2 text-center"><a
-                                href="/star/{{$scenario->star_id}}/"><img
-                                    class="img-rounded img-responsive"
-                                    src="/storage/@if(isset($scenario->star_photo)){{$scenario->star_photo}}@else/site/photo.png @endif" alt=""></a><b><a
-                                    href="/star/3446974/">{{$scenario->star_name}}</a></b></div>
-                    @endforeach
-                </div>
-                <a name="department_3"></a>
-                <h3>Художники</h3>
-                <div class="row">
-                    @foreach ($painters as $painter)
-                        <div class="col-sm-2 text-center"><a
-                                href="/star/{{$painter->star_id}}/"><img
-                                    class="img-rounded img-responsive"
-                                    src="/storage/@if(isset($painter->star_photo)){{$painter->star_photo}}@else/site/photo.png @endif" alt=""></a><b><a
-                                    href="/star/3446974/">{{$painter->star_name}}</a></b></div>
-                    @endforeach
 
-                </div>
+
+
 
             </div>
             <div class="col-sm-2 col-md-2 hidden-xs hidden-sm">

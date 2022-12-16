@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel projects
+## About Laravel projects My-Hit.org
 Cloning the site https://my-hit.org
 
 The site has not been working for a long time, me have to manually restore it from the site 
@@ -15,7 +15,7 @@ https://web.archive.org/web/20150909084614/https://my-hit.org/
 
 I do everything from scratch, repeating the functionality on the Laravel framework
 
-## О проекте на Laravel
+## О проекте на Laravel My-Hit.org
 
 Клонирование сайта https://my-hit.org
 
@@ -25,9 +25,11 @@ https://web.archive.org/web/20150909084614/https://my-hit.org/
 Все делаю с нуля повторяя функционал на фреймворк Ларавел
 
 
-###Demo photo / Демо скриншоты
+##Demo photo / Демо скриншоты
 
 ![](demo1.png)
+
+
 ![](demo2.png)
 
 ## Contributing

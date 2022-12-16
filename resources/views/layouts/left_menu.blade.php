@@ -27,7 +27,7 @@
                 <li class="disabled"><span>Клипы</span></li>@endif
             @if($count_v['promo']>=1)<li><a href="/film/{{$film->film_id}}/video/promo/">Промо ({{$count_v['promo']}})</a></li>@else
                 <li class="disabled"><span>Промо</span></li>@endif
-            @if($count_v['filming']>=1)<li><a href="/film/{{$film->film_id}}/video/filming/">Промо ({{$count_v['filming']}})</a></li>@else
+            @if($count_v['filming']>=1)<li><a href="/film/{{$film->film_id}}/video/filming/">Съёмки ({{$count_v['filming']}})</a></li>@else
             <li class="disabled"><span>Съёмки</span></li>@endif
             @if($count_v['trailer']>=1)<li><a href="/film/{{$film->film_id}}/video/trailer/">Трейлеры ({{$count_v['trailer']}})</a></li>@else
                 <li class="disabled"><span>Трейлеры</span></li>@endif

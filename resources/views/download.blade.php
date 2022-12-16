@@ -9,7 +9,7 @@
             <div class="col-sm-10 col-md-8" itemscope="" itemtype="" style="balllckground-color: #ffffff;">
                 <ul class="breadcrumb">
                     <li><a href="/film/">Фильмы</a></li>
-                    <li><a href="/film/{{$film->film_id}}/">Терминатор: Генезис</a></li>
+                     <li><a href="/film/{{$film->film_id}}/">{{$film->film_name}}</a></li>
                     <li class="active"><h2>Создатели</h2></li>
                 </ul>
                 <h1>{{$film->film_name}} (<a
